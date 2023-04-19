@@ -1,10 +1,29 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    sendData()
+  }, [])
+
+  const sendData = async () => {
+    const response = await fetch('http://localhost:8000/quiz/getUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: {
+        "text": "text"
+      }
+    })
+
+    const res = await response.json()
+
+  }
 
   return (
     <div className="App">
@@ -18,7 +37,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={() => sendData()}>
           count is {count}
         </button>
         <p>
